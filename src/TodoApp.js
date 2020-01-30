@@ -1,7 +1,13 @@
+import React from "react";
+import {TodoList} from "./TodoList";
+
 class TodoApp extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { items: [], text: '' };
+        this.state = { items: [{text:"Learn React", priority:5, dueDate: new Date() },
+                {text:"Learn about APIs", priority:4, dueDate: new Date(2020,1,23) },
+                {text:"write TODO App", priority:3, dueDate: new Date(2020,1,30) }],
+            text: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -12,12 +18,18 @@ class TodoApp extends React.Component {
                 <h3>TODO</h3>
                 <TodoList items={this.state.items} />
                 <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="new-todo">
-                        What needs to be done?
+                    <label>
+                        text:
+                        <input
+                            type="text"
+                            name="text"
+                            onChange={this.handleChange}
+                            value={this.state.text}
+                        />
                     </label>
                     <input
                         id="new-todo"
-                        onChange={this.handleChange}
+                        onChange={this.handleSubmit}
                         value={this.state.text}
                     />
                     <button>
@@ -34,13 +46,12 @@ class TodoApp extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (!this.state.text.priority || !this.state.text.length) {
+        if (!this.state.text.length) {
             return;
         }
         const newItem = {
             text: this.state.text,
-            dueDate: Date.now(),
-            priority: this.state.priority
+            dueDate: Date.now()
         };
         this.setState(prevState => ({
             items: prevState.items.concat(newItem),
