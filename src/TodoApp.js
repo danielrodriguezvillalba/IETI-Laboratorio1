@@ -1,7 +1,7 @@
 import React from "react";
 import {TodoList} from "./TodoList";
 
-class TodoApp extends React.Component {
+export class TodoApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = { items: [{text:"Learn React", priority:5, dueDate: new Date() },
